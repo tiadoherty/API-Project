@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes) => {
         {
           foreignKey: 'reviewId'
         }
+      );
+
+      //user to review relationship
+      Review.belongsTo(
+        models.User,
+        {
+          foreignKey: 'userId'
+        }
       )
     }
   }

@@ -17,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'spotId'
         }
       );
+
+      //user to booking relationship
+      Booking.belongsTo(
+        models.User,
+        {
+          foreignKey: 'userId'
+        }
+      )
     }
   }
   Booking.init({
