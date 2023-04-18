@@ -4,7 +4,8 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+`<img width="742" alt="airbnb-db-schema" src="https://user-images.githubusercontent.com/122951341/232853081-eb6cca19-448f-4ffe-9ff7-325dda9ab302.png">
+`
 
 ## API Documentation
 
