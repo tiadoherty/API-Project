@@ -367,7 +367,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 })
 
 // Create a review for a Spot based on the Spot's ID
-router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res) => {
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
     const spotId = req.params.spotId;
     const userId = req.user.dataValues.id;
     const { review, stars } = req.body;
@@ -404,7 +404,7 @@ router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res) =>
 })
 
 //Create a Spot
-router.post('/', validateSpot, requireAuth, async (req, res) => {
+router.post('/', requireAuth, validateSpot, async (req, res) => {
     const ownerId = req.user.dataValues.id;
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -415,7 +415,7 @@ router.post('/', validateSpot, requireAuth, async (req, res) => {
 })
 
 //Edit a Spot
-router.put('/:spotId', validateSpot, requireAuth, async (req, res) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     const currentUserId = req.user.dataValues.id;
     const spotId = req.params.spotId;
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
