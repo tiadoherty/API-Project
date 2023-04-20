@@ -121,7 +121,11 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
         })
     };
 
-    editedReview.set({ review, stars });
+    // editedReview.set({ review, stars });
+    if (review) editedReview.review = review;
+    if (stars) editedReview.stars = stars;
+    editedReview.updatedAt = new Date();
+
     await editedReview.save();
 
     return res.json(editedReview)
