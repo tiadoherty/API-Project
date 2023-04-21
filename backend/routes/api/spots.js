@@ -361,6 +361,13 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         include: [{ model: Booking }]
     });
 
+    // can't find spot with specified id
+    if (!addBookingSpot) {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+
     const ownerId = addBookingSpot.dataValues.ownerId;
     // authorization error flipped: owner cannot make booking of their own property
     if (ownerId === currentUserId) {
@@ -402,12 +409,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         }
     }
 
-    // can't find spot with specified id
-    if (!addBookingSpot) {
-        return res.status(404).json({
-            "message": "Spot couldn't be found"
-        })
-    }
 
     const newBooking = await Booking.create({
         spotId: parseInt(spotId),
