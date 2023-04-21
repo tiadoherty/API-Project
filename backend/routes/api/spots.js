@@ -22,17 +22,17 @@ const validateSpot = [
     check('city')
         .exists({ checkFalsy: true })
         .isLength({ min: 2 })
-        .isAlpha()
+        .isAlpha('en-US', { ignore: ' ' })
         .withMessage('City is required'),
     check('state')
         .exists({ checkFalsy: true })
         .isLength({ min: 1 })
-        .isAlpha()
+        .isAlpha('en-US', { ignore: ' ' })
         .withMessage("State is required"),
     check('country')
         .exists({ checkFalsy: true })
         .isLength({ min: 1 })
-        .isAlpha()
+        .isAlpha('en-US', { ignore: ' ' })
         .withMessage("Country is required"),
     check('lat')
         .exists({ checkFalsy: true })
@@ -537,18 +537,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         })
     }
 
-    if(address) editedSpot.address = address;
-    if(city) editedSpot.city = city;
-    if(state) editedSpot.state = state;
-    if(country) editedSpot.country = country;
-    if(lng) editedSpot.lng = lng;
-    if(lat) editedSpot.lat = lat;
-    if(name) editedSpot.name = name;
-    if(description) editedSpot.description = description;
-    if(price) editedSpot.price = price;
-    editedSpot.updatedAt = new Date();
-
-    // editedSpot.set({ address, city, state, country, lat, lng, name, description, price });
+    editedSpot.set({ address, city, state, country, lat, lng, name, description, price });
     await editedSpot.save();
 
     return res.json(editedSpot)

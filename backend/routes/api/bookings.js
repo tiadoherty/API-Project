@@ -115,9 +115,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
 
     // Edit the booking
-    if(startDate) editedBooking.startDate = startDate;
-    if(endDate) editedBooking.endDate = endDate;
-    editedBooking.updatedAt = new Date();
+    editedBooking.set({ startDate, endDate });
     await editedBooking.save();
 
     return res.json({
