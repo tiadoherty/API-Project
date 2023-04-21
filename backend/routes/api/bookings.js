@@ -26,7 +26,11 @@ router.get('/current', requireAuth, async (req, res) => {
         delete spot.updatedAt
         delete spot.description
         const previewImage = spot.SpotImages.find(spotImage => spotImage.preview === true)
-        spot.previewImage = previewImage.url
+        if (previewImage) {
+            spot.previewImage = previewImage.url
+        } else {
+            spot.previewImage = 'No preview image found'
+        }
         delete spot.SpotImages
     })
 
@@ -134,7 +138,9 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
     const currentUserId = req.user.dataValues.id;
     const bookingId = req.params.bookingId;
 
-    const bookingToDelete = await Booking.findByPk(bookingId);
+    const bookingToDelete = await Booking.findByPk(bookingId, {
+        include: [{ model: Spot }]
+    });
 
     //can't find booking with specified id
     if (!bookingToDelete) {
@@ -143,9 +149,10 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
         })
     }
 
-    const userId = bookingToDelete.dataValues.userId;
+    const bookingUserId = bookingToDelete.dataValues.userId;
+    const ownerId = bookingToDelete.Spot.dataValues.ownerId;
     //authorization error
-    if (userId !== currentUserId) {
+    if (currentUserId !== bookingUserId && currentUserId !== ownerId) {
         return res.status(403).json({
             "message": "Forbidden"
         })

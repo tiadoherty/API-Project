@@ -44,7 +44,11 @@ router.get('/current', requireAuth, async (req, res) => {
         delete spot.updatedAt
         delete spot.description
         const previewImage = spot.SpotImages.find(spotImage => spotImage.preview === true)
-        spot.previewImage = previewImage.url
+        if (previewImage) {
+            spot.previewImage = previewImage.url
+        } else {
+            spot.previewImage = 'No preview image found'
+        }
         delete spot.SpotImages
     })
 
