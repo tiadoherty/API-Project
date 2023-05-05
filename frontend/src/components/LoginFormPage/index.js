@@ -25,23 +25,23 @@ const LoginFormPage = () => {
     };
 
     return (
-        <div class="login">
-            <form class="loginform" onSubmit={handleSubmit}>
-                <h1 class="logintitle">Log In</h1>
-                <label class="loginlabel">
+        <div className="login">
+            <form className="loginform" onSubmit={handleSubmit}>
+                <h1 className="logintitle">Log In</h1>
+                <label className="loginlabel">
                     Username or Email
                     <input
-                        class="logininput"
+                        className="logininput"
                         type="text"
                         value={credential}
                         onChange={(e) => setCredential(e.target.value)}
                         required
                     />
                 </label>
-                <label class="loginlabel">
+                <label className="loginlabel">
                     Password
                     <input
-                        class="logininput"
+                        className="logininput"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -49,7 +49,7 @@ const LoginFormPage = () => {
                     />
                 </label>
                 {errors.credential && <p>{errors.credential}</p>}
-                <button class="loginbutton" type="submit">Log In</button>
+                <button className="loginbutton" type="submit">Log In</button>
             </form>
         </div>
     );
