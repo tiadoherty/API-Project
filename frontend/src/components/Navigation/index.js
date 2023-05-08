@@ -13,8 +13,7 @@ function Navigation({ isLoaded }) {
             <ul>
                 <li>
                     <NavLink exact to="/" className='home-link'>
-                        <img src={BlueAirbnbLogo} className='logo' />
-                        {/* <img className='logo' title="Home" src={CityLogo} /> */}
+                        <img src={BlueAirbnbLogo} title="Home" className='logo' />
                         noairbnb
                     </NavLink>
                 </li>
