@@ -1,0 +1,34 @@
+.spot-link {
+    color: black;
+    text-decoration: none;
+}
+
+.spot-index-item {
+    padding: 20px;
+    cursor: pointer;
+}
+
+.spot-preview {
+    height: 200px;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.spot-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    align-items: center;
+}
+
+.price-container {
+    margin-top: 6px;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.fa-star {
+    margin-right: 4px;
+}
