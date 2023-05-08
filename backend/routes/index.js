@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
 const apiRouter = require('./api');
 
 router.use('/api', apiRouter);
-
 
 //NOTE: don't know where the POST /api/test route is to delete from frontend auth me phase 0!! so didn't delete anything yet!
 //new from front end part of project:
