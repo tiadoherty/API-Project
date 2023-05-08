@@ -1,11 +1,59 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSpotByIdThunk } from '../../store/spots';
 import './SpotShow.css'
+
 
 const SpotShow = () => {
     const { spotId } = useParams();
+    const spot = useSelector(state => state.spots[spotId])
+    // console.log("spot by id with use selector in spot show:", spot)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchSpotByIdThunk(spotId))
+    }, [dispatch, spotId])
+    if (!spot || !spot.SpotImages) return <h1>spot data still loading</h1>
+    const spotImages = spot.SpotImages; //this is an array with an id and url in each object
+    const previewImageUrl = spotImages.find(obj => obj.preview === true).url
+    const smallImageUrls = spotImages.filter(image => image.preview === false).map(image => image.url);
+    // console.log(smallImageUrls)
+    // console.log("preview image", previewImage)
+    // console.log("images array:", spotImages)
 
     return (
-        <h1 className="spot-show-header"> This is the page for spot number {spotId}</h1>
+        <div className="main-container">
+            <h3 className="spot-show-header">{spot.name}</h3>
+            <p>{spot.city}, {spot.state}, {spot.country}</p>
+            <div className="spot-show-img-container">
+                <div className="large-img-container">
+                    <img className="large-img" src={previewImageUrl} />
+                </div>
+                <div className="small-img-container">
+                    {smallImageUrls.slice(0, 4).map((url) => (
+                        <div className="small-img-item"><img src={url} className="small-img" /></div>
+                    ))}
+                </div>
+            </div>
+            <div className="spot-details-container">
+                <div>
+                    <h3 className="spot-show-header">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
+                    <p>{spot.description}</p>
+                </div>
+                <div className='spot-reservation-container'>
+                    <div className='spot-reservation-details-container'>
+                        <h3>${spot.price} night</h3>
+                        <div>
+                            <span><i className="fa-solid fa-star"></i>{spot.avgStarRating.toFixed(2)}</span>
+                            <span> · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span>
+                        </div>
+                    </div>
+                    <button className='reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
+                </div>
+            </div>
+
+        </div >
     )
 }
 
