@@ -47,7 +47,7 @@ const SpotShow = () => {
                     <div className='spot-reservation-details-container'>
                         <h3>${spot.price} night</h3>
                         <div>
-                            <span><i className="fa-solid fa-star"></i>{spot.avgStarRating.toFixed(2)}</span>
+                            <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
                             <span> · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ const SpotShow = () => {
             </div>
             <div>
                 <h3>
-                    <span><i className="fa-solid fa-star"></i>{spot.avgStarRating.toFixed(2)}</span>
+                    <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
                     <span> · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span>
                 </h3>
                 {spot.reviews.map(review => (

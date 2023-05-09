@@ -12,7 +12,7 @@ const SpotIndexItem = ({ spot }) => {
                 <img src={spot.previewImage} className='spot-preview' />
                 <div className='spot-details'>
                     <span>{spot.city}, {spot.state}</span>
-                    <span><i className="fa-solid fa-star"></i>{avgRating.toFixed(2)}</span>
+                    <span><i className="fa-solid fa-star"></i>{avgRating?.toFixed(2)}</span>
                 </div>
                 <div className='price-container'>
                     <span className='price'>${spot.price} </span>
