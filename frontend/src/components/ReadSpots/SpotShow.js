@@ -18,11 +18,15 @@ const SpotShow = () => {
     }, [dispatch, spotId])
     if (!spot || !spot.SpotImages || !spot.reviews) return null;
     const spotImages = spot.SpotImages; //this is an array with an id and url in each object
-    const previewImageUrl = spotImages.find(obj => obj.preview === true).url
+    console.log("spotImages property from spot show line 20", spotImages)
+    const previewImage = spotImages.find(obj => obj.preview === true)
+    if (!previewImage.url) return null;
+    const previewImageUrl = previewImage.url
     const smallImageUrls = spotImages.filter(image => image.preview === false).map(image => image.url);
     // console.log(smallImageUrls)
     // console.log("preview image", previewImage)
     // console.log("images array:", spotImages)
+    const reviews = spot.numReviews === 0 ? 'New' : spot.numReviews > 1 ? `${spot.numReviews} reviews` : '1 review';
 
     return (
         <div className="main-container">
@@ -48,7 +52,7 @@ const SpotShow = () => {
                         <h3>${spot.price} night</h3>
                         <div>
                             <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
-                            <span> · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span>
+                            <span> · {reviews}</span>
                         </div>
                     </div>
                     <button className='reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
@@ -57,7 +61,7 @@ const SpotShow = () => {
             <div>
                 <h3>
                     <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
-                    <span> · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span>
+                    <span> · {reviews}</span>
                 </h3>
                 {spot.reviews.map(review => (
                     <div className="review-container">

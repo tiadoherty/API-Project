@@ -20,7 +20,7 @@ const SpotIndex = () => {
         <section>
             <ul className='spots-grid'>
                 {spotsArr.map((spot) => (
-                    <SpotIndexItem spot={spot} key={spot.id} />
+                    <SpotIndexItem spot={spot} key={spot.id} canDeleteAndEdit={false} />
                 ))}
             </ul>
         </section>
