@@ -4,8 +4,10 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
+    const history = useHistory()
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
@@ -31,6 +33,11 @@ function ProfileButton({ user }) {
 
     const closeMenu = () => setShowMenu(false);
 
+    const manageSpots = () => {
+        closeMenu()
+        history.push('/spots/current')
+    }
+
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
@@ -50,7 +57,7 @@ function ProfileButton({ user }) {
                     <>
                         <li>Hello, {user.firstName}</li>
                         <li>{user.email}</li>
-                        <li className="manage-spots">Manage Spots</li>
+                        <li onClick={manageSpots} className="manage-spots">Manage Spots</li>
                         <div className="logout-button-container">
                             <button className="logout-button" onClick={logout}>Log Out</button>
                         </div>
