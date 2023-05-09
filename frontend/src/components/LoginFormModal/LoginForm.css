@@ -50,3 +50,25 @@
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px 0px;
     cursor: pointer;
 }
+
+.login-form button:disabled {
+    background: lightgray;
+    cursor: default;
+}
+
+.login-form button:hover:disabled {
+    background: lightgray;
+    cursor: default;
+    box-shadow: none;
+}
+
+.demo-user-link {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.credential-errors {
+    margin-top: 0;
+    margin-left: 20px;
+    color: red;
+}

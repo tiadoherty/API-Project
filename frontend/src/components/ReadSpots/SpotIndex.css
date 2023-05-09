@@ -1,0 +1,23 @@
+.spots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    list-style: none;
+}
+
+@media (min-width: 1200px) {
+    .spots-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 950px) {
+    .spots-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .spots-grid {
+        grid-template-columns: 1fr;
+    }
+}

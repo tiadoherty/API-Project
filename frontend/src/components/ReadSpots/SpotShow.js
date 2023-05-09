@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotByIdThunk } from '../../store/spots';
+import { fetchSpotByIdThunk, fetchReviewsofSpotThunk } from '../../store/spots';
+import formatDate from './formatDate';
 import './SpotShow.css'
 
 
@@ -12,9 +13,10 @@ const SpotShow = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchSpotByIdThunk(spotId))
+        dispatch(fetchSpotByIdThunk(spotId));
+        dispatch(fetchReviewsofSpotThunk(spotId))
     }, [dispatch, spotId])
-    if (!spot || !spot.SpotImages) return <h1>spot data still loading</h1>
+    if (!spot || !spot.SpotImages || !spot.reviews) return null;
     const spotImages = spot.SpotImages; //this is an array with an id and url in each object
     const previewImageUrl = spotImages.find(obj => obj.preview === true).url
     const smallImageUrls = spotImages.filter(image => image.preview === false).map(image => image.url);
@@ -52,7 +54,19 @@ const SpotShow = () => {
                     <button className='reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
             </div>
-
+            <div>
+                <h3>
+                    <span><i className="fa-solid fa-star"></i>{spot.avgStarRating.toFixed(2)}</span>
+                    <span> · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span>
+                </h3>
+                {spot.reviews.map(review => (
+                    <div className="review-container">
+                        <h4>{review.User.firstName}</h4>
+                        <p className='review-date'>{formatDate(review.createdAt)}</p>
+                        <p>{review.review}</p>
+                    </div>
+                ))}
+            </div>
         </div >
     )
 }

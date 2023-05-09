@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 /** Action Type Constants: */
 const LOAD_SPOTS = 'spots/loadSpots';
 const SPOT_DETAILS = 'spots/spotDetails'
+const SPOT_REVIEWS = 'spots/spotReviews'
 
 /**  Action Creators: */
 const loadSpots = (spots) => ({
@@ -13,6 +14,12 @@ const loadSpots = (spots) => ({
 const spotDetails = (spot) => ({
     type: SPOT_DETAILS,
     spot
+})
+
+const spotReviews = (spotId, reviews) => ({
+    type: SPOT_REVIEWS,
+    spotId,
+    reviews
 })
 
 
@@ -27,10 +34,16 @@ export const fetchSpotsThunk = () => async dispatch => {
 export const fetchSpotByIdThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`)
     const spot = await response.json();
-    console.log("Spot from API", spot)
+    // console.log("Spot from API", spot)
     dispatch(spotDetails(spot))
 }
 
+export const fetchReviewsofSpotThunk = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
+    const reviewsForSpot = await response.json();
+    console.log("reviews by spot id:", reviewsForSpot)
+    dispatch(spotReviews(spotId, reviewsForSpot.Reviews))
+}
 
 /** Spots reducer: */
 const spotsReducer = (state = {}, action) => {
@@ -45,7 +58,9 @@ const spotsReducer = (state = {}, action) => {
         case SPOT_DETAILS:
             return {
                 ...state, [action.spot.id]: { ...state[action.spot.id], ...action.spot }
-            }
+            };
+        case SPOT_REVIEWS:
+            return{...state, [action.spotId]: { ...state[action.spotId], reviews: action.reviews }}
         default:
             return state;
     }

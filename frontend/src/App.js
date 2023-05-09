@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import SpotIndex from './components/Spots/SpotIndex';
-import SpotShow from './components/Spots/SpotShow'
+import SpotIndex from './components/ReadSpots/SpotIndex';
+import SpotShow from './components/ReadSpots/SpotShow'
+import CreateSpotForm from "./components/CreateSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,8 +20,9 @@ function App() {
       {!isLoaded && <div>Loading...</div>}
       {isLoaded && (
         <Switch>
-          <Route exact path="/" component={SpotIndex} />
+          <Route exact path="/spots/new" component={CreateSpotForm} />
           <Route exact path="/spots/:spotId" component={SpotShow} />
+          <Route exact path="/" component={SpotIndex} />
         </Switch>
       )
       }

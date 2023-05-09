@@ -76,3 +76,13 @@
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px 0px;
     cursor: pointer;
 }
+
+.review-container>h4 {
+    margin-bottom: 0;
+}
+
+.review-date {
+    font-size: 14px;
+    color: gray;
+    margin-top: 6px;
+}
