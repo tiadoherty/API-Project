@@ -3,7 +3,7 @@ import { useModal } from "../../context/Modal";
 import { useDispatch } from 'react-redux';
 import { deleteSpotThunk } from '../../store/spots';
 
-const DeleteModal = ({ spotId }) => {
+const DeleteSpotModal = ({ spotId }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -24,4 +24,4 @@ const DeleteModal = ({ spotId }) => {
     )
 }
 
-export default DeleteModal
+export default DeleteSpotModal

@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotByIdThunk, fetchReviewsofSpotThunk } from '../../store/spots';
+import OpenModalButton from '../OpenModalButton';
+import DeleteReviewModal from '../DeleteReviewModal';
 import formatDate from './formatDate';
 import './SpotShow.css'
 
@@ -9,6 +11,7 @@ import './SpotShow.css'
 const SpotShow = () => {
     const { spotId } = useParams();
     const spot = useSelector(state => state.spots[spotId])
+    const sessionUser = useSelector(state => state.session.user);
     // console.log("spot by id with use selector in spot show:", spot)
     const dispatch = useDispatch();
 
@@ -64,8 +67,9 @@ const SpotShow = () => {
                     <span> · {reviews}</span>
                 </h3>
                 {spot.reviews.map(review => (
-                    <div className="review-container">
+                    <div className="review-container" key={review.id}>
                         <h4>{review.User.firstName}</h4>
+                        {sessionUser?.id === review.User.id && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
                         <p className='review-date'>{formatDate(review.createdAt)}</p>
                         <p>{review.review}</p>
                     </div>

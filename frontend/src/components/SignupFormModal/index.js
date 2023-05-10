@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
+import { useHistory } from "react-router-dom";
 
 function SignupFormModal() {
+  const history = useHistory()
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -13,7 +15,29 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(true)
   const { closeModal } = useModal();
+
+  useEffect(() => {
+    if (!email || !username || !firstName || !lastName || !password || !confirmPassword) {
+      setButtonIsDisabled(true)
+      return;
+    }
+    if (username.length < 4) {
+      setButtonIsDisabled(true);
+      return;
+    }
+    if (password.length < 6) {
+      setButtonIsDisabled(true);
+      return;
+    }
+    if (password !== confirmPassword) {
+      setButtonIsDisabled(true)
+      return;
+    }
+
+    setButtonIsDisabled(false)
+  }, [email, username, firstName, lastName, password, confirmPassword]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,9 +52,13 @@ function SignupFormModal() {
           password,
         })
       )
-        .then(closeModal)
+        .then(() => {
+          history.push('/')
+          closeModal()
+        })
         .catch(async (res) => {
           const data = await res.json();
+          console.log("Data", data)
           if (data && data.errors) {
             setErrors(data.errors);
           }
@@ -107,7 +135,7 @@ function SignupFormModal() {
         {errors.confirmPassword && (
           <p>{errors.confirmPassword}</p>
         )}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={buttonIsDisabled}>Sign Up</button>
       </form>
     </div>
   );

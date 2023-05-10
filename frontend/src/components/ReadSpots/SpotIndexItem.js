@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
-import DeleteModal from '../DeleteModal';
+import DeleteSpotModal from '../DeleteSpotModal';
 import './SpotIndexItem.css'
 
 const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
@@ -31,7 +31,7 @@ const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
             {canDeleteAndEdit && (
                 <div>
                     <button onClick={handleUpdate}>Update</button>
-                    <OpenModalButton modalComponent={<DeleteModal spotId={spot.id} />} buttonText='Delete' />
+                    <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' />
                 </div>
             )}
         </div>
