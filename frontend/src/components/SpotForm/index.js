@@ -53,11 +53,20 @@ const SpotForm = ({ spot, formType }) => {
         if (formType === 'Edit') {
             newSpot.id = spot.id
             const editedSpotId = await dispatch(updateSpotThunk(newSpot))
-            history.push(`/spots/${editedSpotId}`)
+            if (typeof editedSpotId === 'object') {
+                setErrors(editedSpotId)
+            } else {
+                history.push(`/spots/${editedSpotId}`)
+            }
         } else {
+            //this could be a new spot id OR it could be errors from the front/backend due to my thunk setup
             const newSpotId = await dispatch(createSpotThunk(newSpot, images))
             // console.log("New spot ID", newSpotId)
-            history.push(`/spots/${newSpotId}`)
+            if (typeof newSpotId === 'object') {
+                setErrors(newSpotId)
+            } else {
+                history.push(`/spots/${newSpotId}`)
+            }
         }
     }
 

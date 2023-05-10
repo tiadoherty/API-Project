@@ -78,30 +78,35 @@ export const fetchReviewsofSpotThunk = (spotId) => async dispatch => {
 
 //create a spot thunk: called in form creation
 export const createSpotThunk = (newSpot, images) => async dispatch => {
-    // Create new spot
-    const response = await csrfFetch('/api/spots', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newSpot)
-    })
-    if (response.ok) {
-        const newSpotFromDb = await response.json();
-        console.log("Created spot", newSpotFromDb);
-        // Add spot to state
-        dispatch(createSpot(newSpotFromDb));
+    try {
+        // Create new spot
+        const response = await csrfFetch('/api/spots', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newSpot)
+        });
+        if (response.ok) {
+            const newSpotFromDb = await response.json();
+            console.log("Created spot", newSpotFromDb);
+            // Add spot to state
+            dispatch(createSpot(newSpotFromDb));
 
-        // Upload images for spot
-        const newSpotId = newSpotFromDb.id;
-        const imageFetches = images.map((image) =>
-            csrfFetch(`/api/spots/${newSpotId}/images`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(image),
-            })
-        );
-        await Promise.all(imageFetches)
-
-        return newSpotId
+            // Upload images for spot
+            const newSpotId = newSpotFromDb.id;
+            const imageFetches = images.map((image) =>
+                csrfFetch(`/api/spots/${newSpotId}/images`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(image),
+                })
+            );
+            await Promise.all(imageFetches)
+            return newSpotId
+        }
+    } catch (backendvalidatorerrors) {
+        const errorResponse = await backendvalidatorerrors.json()
+        // console.log("errors from backend in try/catch in create thunk", (errorResponse.errors))
+        return (errorResponse.errors)
     }
 }
 
@@ -115,16 +120,22 @@ export const spotsOfUserThunk = () => async dispatch => {
 
 //edit a spot
 export const updateSpotThunk = (spot) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spot.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spot)
-    })
-    if (response.ok) {
-        const spot = await response.json();
-        console.log("spot from the edit a spot thunk", spot)
-        dispatch(spotDetails(spot));
-        return spot.id
+    try {
+        const response = await csrfFetch(`/api/spots/${spot.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        })
+        if (response.ok) {
+            const spot = await response.json();
+            console.log("spot from the edit a spot thunk", spot)
+            dispatch(spotDetails(spot));
+            return spot.id
+        }
+    } catch (backendvalidatorerrors) {
+        const errorResponse = await backendvalidatorerrors.json()
+        // console.log("errors from backend in try/catch in create thunk", (errorResponse.errors))
+        return (errorResponse.errors)
     }
 }
 

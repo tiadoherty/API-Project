@@ -31,11 +31,6 @@ function SignupFormModal() {
       setButtonIsDisabled(true);
       return;
     }
-    if (password !== confirmPassword) {
-      setButtonIsDisabled(true)
-      return;
-    }
-
     setButtonIsDisabled(false)
   }, [email, username, firstName, lastName, password, confirmPassword]);
 
