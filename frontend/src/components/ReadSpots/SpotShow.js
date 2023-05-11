@@ -4,31 +4,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotByIdThunk, fetchReviewsofSpotThunk } from '../../store/spots';
 import OpenModalButton from '../OpenModalButton';
 import DeleteReviewModal from '../DeleteReviewModal';
+import CreateReviewModal from '../CreateReviewModal';
 import formatDate from './formatDate';
 import './SpotShow.css'
 
 
 const SpotShow = () => {
+    const dispatch = useDispatch();
     const { spotId } = useParams();
     const spot = useSelector(state => state.spots[spotId])
     const sessionUser = useSelector(state => state.session.user);
-    // console.log("spot by id with use selector in spot show:", spot)
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchSpotByIdThunk(spotId));
         dispatch(fetchReviewsofSpotThunk(spotId))
     }, [dispatch, spotId])
+
     if (!spot || !spot.SpotImages || !spot.reviews) return null;
+
     const spotImages = spot.SpotImages; //this is an array with an id and url in each object
-    console.log("spotImages property from spot show line 20", spotImages)
     const previewImage = spotImages.find(obj => obj.preview === true)
     if (!previewImage.url) return null;
+
     const previewImageUrl = previewImage.url
     const smallImageUrls = spotImages.filter(image => image.preview === false).map(image => image.url);
-    // console.log(smallImageUrls)
-    // console.log("preview image", previewImage)
-    // console.log("images array:", spotImages)
+    const spotReviewsCopy = [...spot.reviews]
+    const sortedReviews = spotReviewsCopy.reverse();
     const reviews = spot.numReviews === 0 ? 'New' : spot.numReviews > 1 ? `${spot.numReviews} reviews` : '1 review';
 
     return (
@@ -40,8 +41,8 @@ const SpotShow = () => {
                     <img className="large-img" src={previewImageUrl} />
                 </div>
                 <div className="small-img-container">
-                    {smallImageUrls.slice(0, 4).map((url) => (
-                        <div className="small-img-item"><img src={url} className="small-img" /></div>
+                    {smallImageUrls.slice(0, 4).map((url, index) => (
+                        <div className="small-img-item" key={index}><img src={url} className="small-img" /></div>
                     ))}
                 </div>
             </div>
@@ -66,10 +67,11 @@ const SpotShow = () => {
                     <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
                     <span> · {reviews}</span>
                 </h3>
-                {spot.reviews.map(review => (
+                {sessionUser && spot.Owner.id !== sessionUser.id && !spot.reviews.find(review => review.userId === sessionUser.id) && <OpenModalButton modalComponent={<CreateReviewModal spotId={spot.id} />} buttonText={'Post Your Review'} />}
+                {sortedReviews.map(review => (
                     <div className="review-container" key={review.id}>
-                        <h4>{review.User.firstName}</h4>
-                        {sessionUser?.id === review.User.id && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
+                        <h4>{review.User?.firstName}</h4>
+                        {sessionUser?.id === review.userId && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
                         <p className='review-date'>{formatDate(review.createdAt)}</p>
                         <p>{review.review}</p>
                     </div>

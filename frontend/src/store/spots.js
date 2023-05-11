@@ -8,6 +8,7 @@ const CREATE_SPOT = 'spots/createSpot'
 const GET_USER_SPOTS = 'spots/getUserSpots'
 const DELETE_SPOT = 'spots/deleteSpot'
 
+const CREATE_REVIEW = 'spots/createReviewBySpotId'
 const DELETE_REVIEW = 'spots/deleteReview'
 
 /**  Action Creators: */
@@ -42,6 +43,12 @@ const deleteSpot = (spotId) => ({
     spotId
 })
 
+const createReview = (spotId, review) => ({
+    type: CREATE_REVIEW,
+    review,
+    spotId
+})
+
 const deleteReview = (spotId, reviewId) => ({
     type: DELETE_REVIEW,
     reviewId,
@@ -55,7 +62,7 @@ const deleteReview = (spotId, reviewId) => ({
 export const fetchSpotsThunk = () => async dispatch => {
     const response = await csrfFetch('/api/spots')
     const spots = await response.json();
-    console.log("Spots from API", spots)
+    // console.log("Spots from API", spots)
     dispatch(loadSpots(spots.Spots))
 }
 
@@ -71,37 +78,42 @@ export const fetchSpotByIdThunk = (spotId) => async dispatch => {
 export const fetchReviewsofSpotThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
     const reviewsForSpot = await response.json();
-    console.log("reviews by spot id:", reviewsForSpot)
+    // console.log("reviews by spot id:", reviewsForSpot)
     // if(reviewsForSpot.length > 0) dispatch(spotReviews(spotId, reviewsForSpot.Reviews))
     dispatch(spotReviews(spotId, reviewsForSpot.Reviews))
 }
 
 //create a spot thunk: called in form creation
 export const createSpotThunk = (newSpot, images) => async dispatch => {
-    // Create new spot
-    const response = await csrfFetch('/api/spots', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newSpot)
-    })
-    if (response.ok) {
-        const newSpotFromDb = await response.json();
-        console.log("Created spot", newSpotFromDb);
-        // Add spot to state
-        dispatch(createSpot(newSpotFromDb));
+    try {
+        // Create new spot
+        const response = await csrfFetch('/api/spots', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newSpot)
+        });
+        if (response.ok) {
+            const newSpotFromDb = await response.json();
+            // console.log("Created spot", newSpotFromDb);
+            // Add spot to state
+            dispatch(createSpot(newSpotFromDb));
 
-        // Upload images for spot
-        const newSpotId = newSpotFromDb.id;
-        const imageFetches = images.map((image) =>
-            csrfFetch(`/api/spots/${newSpotId}/images`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(image),
-            })
-        );
-        await Promise.all(imageFetches)
-
-        return newSpotId
+            // Upload images for spot
+            const newSpotId = newSpotFromDb.id;
+            const imageFetches = images.map((image) =>
+                csrfFetch(`/api/spots/${newSpotId}/images`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(image),
+                })
+            );
+            await Promise.all(imageFetches)
+            return newSpotId
+        }
+    } catch (backendvalidatorerrors) {
+        const errorResponse = await backendvalidatorerrors.json()
+        // console.log("errors from backend in try/catch in create thunk", (errorResponse.errors))
+        return (errorResponse.errors)
     }
 }
 
@@ -109,22 +121,28 @@ export const createSpotThunk = (newSpot, images) => async dispatch => {
 export const spotsOfUserThunk = () => async dispatch => {
     const response = await csrfFetch('/api/spots/current')
     const userSpots = await response.json();
-    console.log("Spots of ONLY THE USER from API", userSpots)
+    // console.log("Spots of ONLY THE USER from API", userSpots)
     dispatch(getUserSpots(userSpots.Spots))
 }
 
 //edit a spot
 export const updateSpotThunk = (spot) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spot.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spot)
-    })
-    if (response.ok) {
-        const spot = await response.json();
-        console.log("spot from the edit a spot thunk", spot)
-        dispatch(spotDetails(spot));
-        return spot.id
+    try {
+        const response = await csrfFetch(`/api/spots/${spot.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        })
+        if (response.ok) {
+            const spot = await response.json();
+            // console.log("spot from the edit a spot thunk", spot)
+            dispatch(spotDetails(spot));
+            return spot.id
+        }
+    } catch (backendvalidatorerrors) {
+        const errorResponse = await backendvalidatorerrors.json()
+        // console.log("errors from backend in try/catch in create thunk", (errorResponse.errors))
+        return (errorResponse.errors)
     }
 }
 
@@ -133,9 +151,29 @@ export const deleteSpotThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE'
     })
-    console.log('delete response obj from thunk:', response)
+    // console.log('delete response obj from thunk:', response)
     if (response.ok) {
         dispatch(deleteSpot(spotId))
+    }
+}
+
+//create a review thunk
+export const createReviewThunk = (review, spotId) => async dispatch => {
+    try {
+        const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(review)
+        })
+        if (response.ok) {
+            const newReviewFromDb = await response.json();
+            // console.log("Created review", newReviewFromDb);
+            // Add spot to state
+            dispatch(createReview(spotId, newReviewFromDb));
+        }
+    } catch (backendvalidatorerrors) {
+        const errorResponse = await backendvalidatorerrors.json()
+        return (errorResponse.errors)
     }
 }
 
@@ -151,7 +189,7 @@ export const deleteReviewThunk = (spotId, reviewId) => async dispatch => {
 
 /** Spots reducer: */
 const spotsReducer = (state = {}, action) => {
-    console.log("Action", action, state)
+    // console.log("Action", action, state)
     switch (action.type) {
         case LOAD_SPOTS:
             const spotsState = {};
@@ -177,9 +215,26 @@ const spotsReducer = (state = {}, action) => {
             const newState = { ...state };
             delete newState[action.spotId];
             return newState;
+        case CREATE_REVIEW:
+            return {
+                ...state,
+                [action.spotId]: {
+                    ...state[action.spotId],
+                    reviews: [...state[action.spotId].reviews, action.review],
+                    numReviews: state[action.spotId].reviews.length + 1,
+                    avgStarRating: [...state[action.spotId].reviews, action.review].reduce((sum, review) => {
+                        sum += review.stars
+                        return sum
+                    }, 0) / (state[action.spotId].reviews.length + 1)
+                }
+            }
         case DELETE_REVIEW:
             const reviews = state[action.spotId].reviews.filter(review => review.id !== action.reviewId);
-            return { ...state, [action.spotId]: { ...state[action.spotId], reviews, numReviews: reviews.length } }
+            const newAvgRating = reviews.reduce((sum, review) => {
+                sum += review.stars
+                return sum
+            }, 0) / reviews.length
+            return { ...state, [action.spotId]: { ...state[action.spotId], reviews, numReviews: reviews.length, avgStarRating: newAvgRating } }
         default:
             return state;
     }

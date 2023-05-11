@@ -29,7 +29,7 @@ const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
                 </li>
             </NavLink>
             {canDeleteAndEdit && (
-                <div>
+                <div className='button-container'>
                     <button onClick={handleUpdate}>Update</button>
                     <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' />
                 </div>

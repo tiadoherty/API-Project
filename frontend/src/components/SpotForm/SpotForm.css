@@ -1,3 +1,86 @@
+.form-title {
+    display: flex;
+    justify-content: center;
+}
+
+.form-title>h1 {
+    width: 40rem;
+}
+
 .validation-error {
     color: red;
+}
+
+.main-page-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    width: 40rem;
+}
+
+.wide-input,
+wide-input input {
+    margin: 8px 0;
+}
+
+input,
+textarea {
+    background: #EBF5FB;
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221)
+}
+
+.dollah-sign {
+    margin-right: 5px;
+    font-weight: normal;
+}
+
+.wide-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+}
+
+.city-state {
+    display: flex;
+}
+
+.city {
+    display: flex;
+    width: 60%;
+    align-items: flex-end;
+}
+
+.city-label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.city-label input {
+    width: 90%;
+    margin: 8px 5px 8px 0px;
+}
+
+.state input {
+    width: 100%;
+    margin: 8px 0;
+}
+
+.description {
+    margin-bottom: 8px;
+    height: 100px;
+}
+
+.state {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 20px 0;
 }

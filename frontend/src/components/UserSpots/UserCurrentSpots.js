@@ -20,7 +20,7 @@ const CurrentSpots = () => {
         history.push('/spots/new')
     }
 
-    if (!userSpotsArr.length) return <h1>User spots not loaded</h1>
+    if (!userSpotsArr.length) return <h1>No spots for this user</h1>
 
     return (
         <>

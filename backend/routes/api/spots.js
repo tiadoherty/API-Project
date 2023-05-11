@@ -17,23 +17,23 @@ const router = express.Router();
 const validateSpot = [
     check('address')
         .exists({ checkFalsy: true })
-        .isLength({ min: 5 })
+        .isLength({ min: 1 })
         .withMessage("Street address is required"),
     check('city')
         .exists({ checkFalsy: true })
-        .isLength({ min: 2 })
+        .isLength({ min: 1 })
         .isAlpha('en-US', { ignore: ' ' })
-        .withMessage('City is required'),
+        .withMessage('City is required and cannot contain numbers or symbols'),
     check('state')
         .exists({ checkFalsy: true })
         .isLength({ min: 1 })
         .isAlpha('en-US', { ignore: ' ' })
-        .withMessage("State is required"),
+        .withMessage("State is required and cannot contain numbers or symbols"),
     check('country')
         .exists({ checkFalsy: true })
         .isLength({ min: 1 })
         .isAlpha('en-US', { ignore: ' ' })
-        .withMessage("Country is required"),
+        .withMessage("Country is required and cannot contain numbers or symbols"),
     check('lat')
         .exists({ checkFalsy: true })
         .isNumeric({ min: -90, max: 90 })
@@ -48,12 +48,12 @@ const validateSpot = [
         .withMessage("Name must be less than 50 characters"),
     check('description')
         .exists({ checkFalsy: true })
-        .isLength({ min: 5, max: 1000 })
-        .withMessage("Description is required"),
+        .isLength({ min: 1, max: 1000 })
+        .withMessage("Description is required and cannot be longer than 1000 characters"),
     check('price')
         .exists({ checkFalsy: true })
         .isNumeric()
-        .withMessage("Price per day is required"),
+        .withMessage("Price per day is required and cannot contain letters"),
     handleValidationErrors
 ];
 

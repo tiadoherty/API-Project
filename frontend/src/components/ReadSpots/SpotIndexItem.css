@@ -32,3 +32,12 @@
 .fa-star {
     margin-right: 4px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-container button {
+    margin-right: 20px;
+}

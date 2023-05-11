@@ -1,1 +1,43 @@
 /* TODO Add site wide styles */
+
+.main {
+    padding: 0 80px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    padding: 10px;
+    background: rgb(31, 97, 141);
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover {
+    background: rgb(35, 119, 175);
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px 0px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: lightgray;
+    cursor: default;
+}
+
+button:hover:disabled {
+    background: lightgray;
+    cursor: default;
+    box-shadow: none;
+}
+
+.delete-button {
+    background: #f44336;
+}
+
+.delete-button:hover {
+    background: #EC7063;
+}

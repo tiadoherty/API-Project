@@ -1,0 +1,41 @@
+.create-review-modal {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.create-review-modal>form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.validation-errors {
+    color: red;
+}
+
+.create-review-modal h2 {
+    margin-top: 0;
+}
+
+.create-review-modal textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.stars-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star {
+    width: 18px;
+    height: 18px;
+}
+
+.stars-label {
+    margin-left: 5px;
+}
