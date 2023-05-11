@@ -10,6 +10,10 @@
     align-items: center;
 }
 
+.validation-errors {
+    color: red;
+}
+
 .create-review-modal textarea {
     width: 90%;
     height: 100px;

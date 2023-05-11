@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { createSpotThunk } from '../../store/spots';
+import React from 'react';
 import SpotForm from '../SpotForm';
 
 const CreateSpotForm = ({ spot, formType }) => {

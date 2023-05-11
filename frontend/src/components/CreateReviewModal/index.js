@@ -5,13 +5,16 @@ import { createReviewThunk, fetchReviewsofSpotThunk } from '../../store/spots';
 import Stars from './Stars';
 import './CreateReviewModal.css'
 
+//todo:
+//look in backend maybe to put reviews in order? want the newly posted review to go to the top not the bottom
 const CreateReviewModal = ({ spotId }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [errors, setErrors] = useState({});
-    const [isDisabled, setIsDisabled] = useState(true)
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
     useEffect(() => {
         let errorObj = {};
@@ -32,6 +35,8 @@ const CreateReviewModal = ({ spotId }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
+        setHasSubmitted(true)
+        console.log("Errors", errors)
         if (Object.values(errors).length > 0) return;
 
         let reviewObj = {
@@ -40,6 +45,7 @@ const CreateReviewModal = ({ spotId }) => {
         }
 
         const errorsFromServer = await dispatch(createReviewThunk(reviewObj, spotId))
+        //create review thunk will only have a return value if there are errors from the backend
         if (errorsFromServer) {
             setErrors(errorsFromServer)
         } else {
@@ -55,9 +61,12 @@ const CreateReviewModal = ({ spotId }) => {
     return (
         <div className='create-review-modal'>
             <h2>How was your stay?</h2>
+            {hasSubmitted && Object.values(errors).length && <p className='validation-error'>{errors.message}</p>}
             <form onSubmit={onSubmit}>
                 <textarea placeholder='Leave your review here...' value={review} onChange={e => { setReview(e.target.value) }} />
+                {hasSubmitted && errors.review && <p className='validation-error'>{errors.review}</p>}
                 <Stars stars={stars} handleClick={handleClick} />
+                {hasSubmitted && errors.stars && <p className='validation-error'>{errors.stars}</p>}
                 <button type="submit" disabled={isDisabled}>Submit Your Review</button>
             </form>
         </div>

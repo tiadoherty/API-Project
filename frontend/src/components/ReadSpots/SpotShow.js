@@ -30,6 +30,8 @@ const SpotShow = () => {
     // console.log(smallImageUrls)
     // console.log("preview image", previewImage)
     // console.log("images array:", spotImages)
+    const spotReviewsCopy = [...spot.reviews]
+    const sortedReviews = spotReviewsCopy.reverse();
     const reviews = spot.numReviews === 0 ? 'New' : spot.numReviews > 1 ? `${spot.numReviews} reviews` : '1 review';
 
     return (
@@ -68,7 +70,7 @@ const SpotShow = () => {
                     <span> · {reviews}</span>
                 </h3>
                 {sessionUser && spot.Owner.id !== sessionUser.id && !spot.reviews.find(review => review.userId === sessionUser.id) && <OpenModalButton modalComponent={<CreateReviewModal spotId={spot.id} />} buttonText={'Post Your Review'} />}
-                {spot.reviews.map(review => (
+                {sortedReviews.map(review => (
                     <div className="review-container" key={review.id}>
                         <h4>{review.User?.firstName}</h4>
                         {sessionUser?.id === review.userId && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}

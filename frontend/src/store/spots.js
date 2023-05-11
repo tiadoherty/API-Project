@@ -216,10 +216,25 @@ const spotsReducer = (state = {}, action) => {
             delete newState[action.spotId];
             return newState;
         case CREATE_REVIEW:
-            return { ...state, [action.spotId]: { ...state[action.spotId], reviews: [...state[action.spotId].reviews, action.review], numReviews: state[action.spotId].reviews.length + 1 } }
+            return {
+                ...state,
+                [action.spotId]: {
+                    ...state[action.spotId],
+                    reviews: [...state[action.spotId].reviews, action.review],
+                    numReviews: state[action.spotId].reviews.length + 1,
+                    avgStarRating: [...state[action.spotId].reviews, action.review].reduce((sum, review) => {
+                        sum += review.stars
+                        return sum
+                    }, 0) / (state[action.spotId].reviews.length + 1)
+                }
+            }
         case DELETE_REVIEW:
             const reviews = state[action.spotId].reviews.filter(review => review.id !== action.reviewId);
-            return { ...state, [action.spotId]: { ...state[action.spotId], reviews, numReviews: reviews.length } }
+            const newAvgRating = reviews.reduce((sum, review) => {
+                sum += review.stars
+                return sum
+            }, 0) / reviews.length
+            return { ...state, [action.spotId]: { ...state[action.spotId], reviews, numReviews: reviews.length, avgStarRating: newAvgRating } }
         default:
             return state;
     }
