@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotByIdThunk, fetchReviewsofSpotThunk } from '../../store/spots';
 import OpenModalButton from '../OpenModalButton';
 import DeleteReviewModal from '../DeleteReviewModal';
+import CreateReviewModal from '../CreateReviewModal';
 import formatDate from './formatDate';
 import './SpotShow.css'
 
@@ -66,10 +67,11 @@ const SpotShow = () => {
                     <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
                     <span> · {reviews}</span>
                 </h3>
+                {sessionUser && spot.Owner.id !== sessionUser.id && !spot.reviews.find(review => review.userId === sessionUser.id) && <OpenModalButton modalComponent={<CreateReviewModal spotId={spot.id} />} buttonText={'Post Your Review'} />}
                 {spot.reviews.map(review => (
                     <div className="review-container" key={review.id}>
-                        <h4>{review.User.firstName}</h4>
-                        {sessionUser?.id === review.User.id && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
+                        <h4>{review.User?.firstName}</h4>
+                        {sessionUser?.id === review.userId && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
                         <p className='review-date'>{formatDate(review.createdAt)}</p>
                         <p>{review.review}</p>
                     </div>

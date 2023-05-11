@@ -1,0 +1,29 @@
+.create-review-modal {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.create-review-modal>form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-review-modal textarea {
+    width: 90%;
+    height: 100px;
+}
+
+.stars-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+}

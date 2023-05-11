@@ -7,7 +7,6 @@ const DeleteReviewModal = ({ reviewId, spotId }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteReviewThunk(spotId, reviewId))

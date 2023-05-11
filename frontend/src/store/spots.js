@@ -8,6 +8,7 @@ const CREATE_SPOT = 'spots/createSpot'
 const GET_USER_SPOTS = 'spots/getUserSpots'
 const DELETE_SPOT = 'spots/deleteSpot'
 
+const CREATE_REVIEW = 'spots/createReviewBySpotId'
 const DELETE_REVIEW = 'spots/deleteReview'
 
 /**  Action Creators: */
@@ -39,6 +40,12 @@ const getUserSpots = (userSpots) => ({
 
 const deleteSpot = (spotId) => ({
     type: DELETE_SPOT,
+    spotId
+})
+
+const createReview = (spotId, review) => ({
+    type: CREATE_REVIEW,
+    review,
     spotId
 })
 
@@ -150,6 +157,26 @@ export const deleteSpotThunk = (spotId) => async dispatch => {
     }
 }
 
+//create a review thunk
+export const createReviewThunk = (review, spotId) => async dispatch => {
+    try {
+        const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(review)
+        })
+        if (response.ok) {
+            const newReviewFromDb = await response.json();
+            console.log("Created review", newReviewFromDb);
+            // Add spot to state
+            dispatch(createReview(spotId, newReviewFromDb));
+        }
+    } catch (backendvalidatorerrors) {
+        const errorResponse = await backendvalidatorerrors.json()
+        return (errorResponse.errors)
+    }
+}
+
 //delete a review thunk
 export const deleteReviewThunk = (spotId, reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
@@ -188,6 +215,8 @@ const spotsReducer = (state = {}, action) => {
             const newState = { ...state };
             delete newState[action.spotId];
             return newState;
+        case CREATE_REVIEW:
+            return { ...state, [action.spotId]: { ...state[action.spotId], reviews: [...state[action.spotId].reviews, action.review], numReviews: state[action.spotId].reviews.length + 1 } }
         case DELETE_REVIEW:
             const reviews = state[action.spotId].reviews.filter(review => review.id !== action.reviewId);
             return { ...state, [action.spotId]: { ...state[action.spotId], reviews, numReviews: reviews.length } }
