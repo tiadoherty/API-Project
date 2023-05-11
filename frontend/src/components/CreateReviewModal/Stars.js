@@ -21,7 +21,7 @@ const Stars = ({ stars, handleClick }) => {
             <span onClick={() => handleClick(3)} onMouseOver={() => setActiveStars(3)}>{star3}</span>
             <span onClick={() => handleClick(4)} onMouseOver={() => setActiveStars(4)}>{star4}</span>
             <span onClick={() => handleClick(5)} onMouseOver={() => setActiveStars(5)}>{star5}</span>
-            <label>Stars</label>
+            <label className='stars-label'>Stars</label>
         </div >
     )
 }

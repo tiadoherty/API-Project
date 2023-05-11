@@ -19,17 +19,19 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {!isLoaded && <div>Loading...</div>}
-      {isLoaded && (
-        <Switch>
-          <Route exact path="/spots/current" component={UserCurrentSpots} />
-          <Route exact path="/spots/new" component={CreateSpotForm} />
-          <Route exact path="/spots/:spotId/edit" component={EditSpotForm} />
-          <Route exact path="/spots/:spotId" component={SpotShow} />
-          <Route exact path="/" component={SpotIndex} />
-        </Switch>
-      )
-      }
+      <div className="main">
+        {!isLoaded && <div>Loading...</div>}
+        {isLoaded && (
+          <Switch>
+            <Route exact path="/spots/current" component={UserCurrentSpots} />
+            <Route exact path="/spots/new" component={CreateSpotForm} />
+            <Route exact path="/spots/:spotId/edit" component={EditSpotForm} />
+            <Route exact path="/spots/:spotId" component={SpotShow} />
+            <Route exact path="/" component={SpotIndex} />
+          </Switch>
+        )
+        }
+      </div>
     </>
   );
 }
