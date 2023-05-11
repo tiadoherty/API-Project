@@ -19,7 +19,7 @@ const DeleteSpotModal = ({ spotId }) => {
             <h1>Confirm Delete</h1>
             <p>Are you sure you want to remove this spot from the listings?</p>
             <div className='button-container'>
-                <button style={{ background: '#f44336' }} onClick={handleDelete}>Yes {'(Delete Spot)'}</button>
+                <button className='delete-button' onClick={handleDelete}>Yes {'(Delete Spot)'}</button>
                 <button onClick={() => closeModal()}>No {'(Keep Spot)'}</button>
             </div>
         </div>

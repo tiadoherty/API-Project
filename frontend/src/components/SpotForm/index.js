@@ -26,7 +26,7 @@ const SpotForm = ({ spot, formType }) => {
         e.preventDefault();
 
         setHasSubmitted(true)
-        console.log("Errors", errors)
+        // console.log("Errors", errors)
         //don't submit if validation errors
         if (Object.values(errors).length > 0) return;
 
@@ -101,98 +101,120 @@ const SpotForm = ({ spot, formType }) => {
     }, [country, address, city, state, description, name, price, previewImageUrl, imageUrl1, imageUrl2, imageUrl3, imageUrl4])
 
     return (
-        <form>
-            <h3>Where's your place located?</h3>
-            <p>Guests will only get your exact address once they've booked a reservation.</p>
-            <label>
-                Country
-                {hasSubmitted && errors.country && <span className='validation-error'>{errors.country}</span>}
+        <div className='main-page-container'>
+            <form className='form-container'>
+                <h3>Where's your place located?</h3>
+                <p>Guests will only get your exact address once they've booked a reservation.</p>
+                <label className='wide-input'>
+                    Country
+                    {hasSubmitted && errors.country && <span className='validation-error'>{errors.country}</span>}
+                    <input
+                        type='text'
+                        placeholder='Country'
+                        value={country}
+                        onChange={(e) => { setCountry(e.target.value) }} />
+                </label>
+                <label className='wide-input'>
+                    Street Address
+                    {hasSubmitted && errors.address && <span className='validation-error'>{errors.address}</span>}
+                    <input
+                        type='text' placeholder='Address' value={address} onChange={(e) => { setAddress(e.target.value) }} />
+                </label>
+                <div className='city-state'>
+                    <div className='city'>
+                        <label className='city-label'>
+                            City
+                            {hasSubmitted && errors.city && <span className='validation-error'>{errors.city}</span>}
+                            <div>
+                                <input type='text' placeholder='City' value={city} onChange={(e) => { setCity(e.target.value) }} />
+                                <span>,</span>
+                            </div>
+                        </label>
+
+                    </div>
+                    <label className='state'>
+                        State
+                        {hasSubmitted && errors.state && <span className='validation-error'>{errors.state}</span>}
+                        <input type='text' placeholder='STATE' value={state} onChange={(e) => { setState(e.target.value) }} />
+                    </label>
+                </div>
+                <hr />
+                <h3>Describe your place to guests</h3>
+                <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
+                <textarea
+                    className='description wide-input'
+                    placeholder='Please write at least 30 characters'
+                    value={description}
+                    onChange={(e) => { setDescription(e.target.value) }} />
+                {hasSubmitted && errors.description && <p className='validation-error'>{errors.description}</p>}
+                <hr />
+                <h3>Create a title for your spot</h3>
+                <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <input
+                    className='name wide-input'
                     type='text'
-                    placeholder='Country'
-                    value={country}
-                    onChange={(e) => { setCountry(e.target.value) }} />
-            </label>
-            <label>
-                Street Address
-                {hasSubmitted && errors.address && <span className='validation-error'>{errors.address}</span>}
+                    placeholder='Name of your spot'
+                    value={name}
+                    onChange={(e) => { setName(e.target.value) }} />
+                {hasSubmitted && errors.name && <p className='validation-error'>{errors.name}</p>}
+                <hr />
+                <h3>Set a base price for your spot</h3>
+                <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+                <div className="price">
+                    <span class='dollah-sign'>$</span>
+                    <input
+                        type='number'
+                        placeholder='Price per night (USD)'
+                        value={price}
+                        onChange={(e) => { setPrice(e.target.value) }}
+                        className='price-input' />
+                    {hasSubmitted && errors.price && <p className='validation-error'>{errors.price}</p>}
+                </div>
+
+                <hr />
+                <h3>Liven up your spot with photos</h3>
+                <p>Submit a link to at least one photo to publish your spot.</p>
                 <input
-                    type='text' placeholder='Address' value={address} onChange={(e) => { setAddress(e.target.value) }} />
-            </label>
-            <div>
-                <label>
-                    City
-                    {hasSubmitted && errors.city && <span className='validation-error'>{errors.city}</span>}
-                    <input type='text' placeholder='City' value={city} onChange={(e) => { setCity(e.target.value) }} />
-                    ,
-                </label>
-                <label>
-                    State
-                    {hasSubmitted && errors.state && <span className='validation-error'>{errors.state}</span>}
-                    <input type='text' placeholder='STATE' value={state} onChange={(e) => { setState(e.target.value) }} />
-                </label>
-            </div>
-            <hr />
-            <h3>Describe your place to guests</h3>
-            <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
-            <textarea
-                placeholder='Please write at least 30 characters'
-                value={description}
-                onChange={(e) => { setDescription(e.target.value) }} />
-            {hasSubmitted && errors.description && <p className='validation-error'>{errors.description}</p>}
-            <hr />
-            <h3>Create a title for your spot</h3>
-            <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
-            <input
-                type='text'
-                placeholder='Name of your spot'
-                value={name}
-                onChange={(e) => { setName(e.target.value) }} />
-            {hasSubmitted && errors.name && <p className='validation-error'>{errors.name}</p>}
-            <hr />
-            <h3>Set a base price for your spot</h3>
-            <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-            $ <input
-                type='number'
-                placeholder='Price per night (USD)'
-                value={price}
-                onChange={(e) => { setPrice(e.target.value) }} />
-            {hasSubmitted && errors.price && <p className='validation-error'>{errors.price}</p>}
-            <hr />
-            <h3>Liven up your spot with photos</h3>
-            <p>Submit a link to at least one photo to publish your spot.</p>
-            <input
-                type='text'
-                placeholder='Preview Image URL'
-                value={previewImageUrl}
-                onChange={(e) => { setPreviewImageUrl(e.target.value) }} />
-            {hasSubmitted && errors.previewImageUrl && <p className='validation-error'>{errors.previewImageUrl}</p>}
-            <input
-                type='text'
-                placeholder='Image URL'
-                value={imageUrl1}
-                onChange={(e) => { setImageUrl1(e.target.value) }} />
-            {hasSubmitted && errors.imageUrl1 && <p className='validation-error'>{errors.imageUrl1}</p>}
-            <input type='text'
-                placeholder='Image URL'
-                value={imageUrl2}
-                onChange={(e) => { setImageUrl2(e.target.value) }} />
-            {hasSubmitted && errors.imageUrl2 && <p className='validation-error'>{errors.imageUrl2}</p>}
-            <input
-                type='text'
-                placeholder='Image URL'
-                value={imageUrl3}
-                onChange={(e) => { setImageUrl3(e.target.value) }} />
-            {hasSubmitted && errors.imageUrl3 && <p className='validation-error'>{errors.imageUrl3}</p>}
-            <input t
-                ype='text'
-                placeholder='Image URL'
-                value={imageUrl4}
-                onChange={(e) => { setImageUrl4(e.target.value) }} />
-            {hasSubmitted && errors.imageUrl4 && <p className='validation-error'>{errors.imageUrl4}</p>}
-            <hr />
-            <button type='submit' onClick={onSubmit}>{formType === 'Edit' ? 'Update spot' : 'Create a spot'}</button>
-        </form>
+                    className='wide-input'
+                    type='text'
+                    placeholder='Preview Image URL'
+                    value={previewImageUrl}
+                    onChange={(e) => { setPreviewImageUrl(e.target.value) }} />
+                {hasSubmitted && errors.previewImageUrl && <p className='validation-error'>{errors.previewImageUrl}</p>}
+                <input
+                    className='wide-input'
+                    type='text'
+                    placeholder='Image URL'
+                    value={imageUrl1}
+                    onChange={(e) => { setImageUrl1(e.target.value) }} />
+                {hasSubmitted && errors.imageUrl1 && <p className='validation-error'>{errors.imageUrl1}</p>}
+                <input
+                    className='wide-input'
+                    type='text'
+                    placeholder='Image URL'
+                    value={imageUrl2}
+                    onChange={(e) => { setImageUrl2(e.target.value) }} />
+                {hasSubmitted && errors.imageUrl2 && <p className='validation-error'>{errors.imageUrl2}</p>}
+                <input
+                    className='wide-input'
+                    type='text'
+                    placeholder='Image URL'
+                    value={imageUrl3}
+                    onChange={(e) => { setImageUrl3(e.target.value) }} />
+                {hasSubmitted && errors.imageUrl3 && <p className='validation-error'>{errors.imageUrl3}</p>}
+                <input
+                    className='wide-input'
+                    type='text'
+                    placeholder='Image URL'
+                    value={imageUrl4}
+                    onChange={(e) => { setImageUrl4(e.target.value) }} />
+                {hasSubmitted && errors.imageUrl4 && <p className='validation-error'>{errors.imageUrl4}</p>}
+                <hr />
+                <div className='submit-button-container'>
+                    <button type='submit' onClick={onSubmit}>{formType === 'Edit' ? 'Update spot' : 'Create a spot'}</button>
+                </div>
+            </form>
+        </div>
     )
 }
 

@@ -14,8 +14,12 @@
     color: red;
 }
 
+.create-review-modal h2 {
+    margin-top: 0;
+}
+
 .create-review-modal textarea {
-    width: 90%;
+    width: 100%;
     height: 100px;
 }
 

@@ -18,7 +18,9 @@ const EditSpotForm = () => {
 
     return (
         <>
-            <h1>Update your Spot</h1>
+            <div className='form-title'>
+                <h1>Update your Spot</h1>
+            </div>
             <SpotForm formType='Edit' spot={spot} />
         </>
     )

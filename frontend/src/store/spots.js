@@ -62,7 +62,7 @@ const deleteReview = (spotId, reviewId) => ({
 export const fetchSpotsThunk = () => async dispatch => {
     const response = await csrfFetch('/api/spots')
     const spots = await response.json();
-    console.log("Spots from API", spots)
+    // console.log("Spots from API", spots)
     dispatch(loadSpots(spots.Spots))
 }
 
@@ -78,7 +78,7 @@ export const fetchSpotByIdThunk = (spotId) => async dispatch => {
 export const fetchReviewsofSpotThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
     const reviewsForSpot = await response.json();
-    console.log("reviews by spot id:", reviewsForSpot)
+    // console.log("reviews by spot id:", reviewsForSpot)
     // if(reviewsForSpot.length > 0) dispatch(spotReviews(spotId, reviewsForSpot.Reviews))
     dispatch(spotReviews(spotId, reviewsForSpot.Reviews))
 }
@@ -94,7 +94,7 @@ export const createSpotThunk = (newSpot, images) => async dispatch => {
         });
         if (response.ok) {
             const newSpotFromDb = await response.json();
-            console.log("Created spot", newSpotFromDb);
+            // console.log("Created spot", newSpotFromDb);
             // Add spot to state
             dispatch(createSpot(newSpotFromDb));
 
@@ -121,7 +121,7 @@ export const createSpotThunk = (newSpot, images) => async dispatch => {
 export const spotsOfUserThunk = () => async dispatch => {
     const response = await csrfFetch('/api/spots/current')
     const userSpots = await response.json();
-    console.log("Spots of ONLY THE USER from API", userSpots)
+    // console.log("Spots of ONLY THE USER from API", userSpots)
     dispatch(getUserSpots(userSpots.Spots))
 }
 
@@ -135,7 +135,7 @@ export const updateSpotThunk = (spot) => async dispatch => {
         })
         if (response.ok) {
             const spot = await response.json();
-            console.log("spot from the edit a spot thunk", spot)
+            // console.log("spot from the edit a spot thunk", spot)
             dispatch(spotDetails(spot));
             return spot.id
         }
@@ -151,7 +151,7 @@ export const deleteSpotThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE'
     })
-    console.log('delete response obj from thunk:', response)
+    // console.log('delete response obj from thunk:', response)
     if (response.ok) {
         dispatch(deleteSpot(spotId))
     }
@@ -167,7 +167,7 @@ export const createReviewThunk = (review, spotId) => async dispatch => {
         })
         if (response.ok) {
             const newReviewFromDb = await response.json();
-            console.log("Created review", newReviewFromDb);
+            // console.log("Created review", newReviewFromDb);
             // Add spot to state
             dispatch(createReview(spotId, newReviewFromDb));
         }
@@ -189,7 +189,7 @@ export const deleteReviewThunk = (spotId, reviewId) => async dispatch => {
 
 /** Spots reducer: */
 const spotsReducer = (state = {}, action) => {
-    console.log("Action", action, state)
+    // console.log("Action", action, state)
     switch (action.type) {
         case LOAD_SPOTS:
             const spotsState = {};

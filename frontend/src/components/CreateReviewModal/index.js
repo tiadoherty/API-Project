@@ -36,7 +36,7 @@ const CreateReviewModal = ({ spotId }) => {
         e.preventDefault();
 
         setHasSubmitted(true)
-        console.log("Errors", errors)
+        // console.log("Errors", errors)
         if (Object.values(errors).length > 0) return;
 
         let reviewObj = {

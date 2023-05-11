@@ -33,3 +33,11 @@ button:hover:disabled {
     cursor: default;
     box-shadow: none;
 }
+
+.delete-button {
+    background: #f44336;
+}
+
+.delete-button:hover {
+    background: #EC7063;
+}
