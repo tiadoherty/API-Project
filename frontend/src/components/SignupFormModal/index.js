@@ -6,7 +6,7 @@ import "./SignupForm.css";
 import { useHistory } from "react-router-dom";
 
 function SignupFormModal() {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
