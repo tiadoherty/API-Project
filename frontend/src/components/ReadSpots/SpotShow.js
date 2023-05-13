@@ -30,7 +30,7 @@ const SpotShow = () => {
     const smallImageUrls = spotImages.filter(image => image.preview === false).map(image => image.url);
     const spotReviewsCopy = [...spot.reviews]
     const sortedReviews = spotReviewsCopy.reverse();
-    const reviews = spot.numReviews === 0 ? 'New' : spot.numReviews > 1 ? `${spot.numReviews} reviews` : '1 review';
+    const reviews = spot.numReviews === 0 ? 'New' : spot.numReviews > 1 ? ` · ${spot.numReviews} reviews` : ' · 1 review';
 
     return (
         <div className="main-container">
@@ -56,7 +56,7 @@ const SpotShow = () => {
                         <h3>${spot.price} night</h3>
                         <div>
                             <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
-                            <span> · {reviews}</span>
+                            <span>{reviews}</span>
                         </div>
                     </div>
                     <button className='reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
@@ -65,9 +65,10 @@ const SpotShow = () => {
             <div>
                 <h3>
                     <span><i className="fa-solid fa-star"></i>{spot.avgStarRating?.toFixed(2)}</span>
-                    <span> · {reviews}</span>
+                    <span>{reviews}</span>
                 </h3>
                 {sessionUser && spot.Owner.id !== sessionUser.id && !spot.reviews.find(review => review.userId === sessionUser.id) && <OpenModalButton modalComponent={<CreateReviewModal spotId={spot.id} />} buttonText={'Post Your Review'} />}
+                {!sortedReviews.length && sessionUser && spot.Owner.id !== sessionUser.id && <p>Be the first to post a review!</p>}
                 {sortedReviews.map(review => (
                     <div className="review-container" key={review.id}>
                         <h4>{review.User?.firstName}</h4>

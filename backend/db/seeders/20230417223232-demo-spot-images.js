@@ -21,6 +21,21 @@ module.exports = {
         preview: false
       },
       {
+        spotId: 1,
+        url: 'http://www.templeofatlantis.com/resources/298726939_3258163891131536_1381351826422913444_n.jpg',
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: 'https://www.worldatlas.com/r/w1200/upload/7a/f8/f7/lost-city-of-atlantis.jpg',
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: 'https://www.telegraph.co.uk/multimedia/archive/01848/atlantis_1848106c.jpg?imwidth=960',
+        preview: false
+      },
+      {
         spotId: 2,
         url: 'https://i.insider.com/5824be9fdd0895d1368b47e8?width=700&format=jpeg&auto=webp',
         preview: true
@@ -90,6 +105,41 @@ module.exports = {
         url: 'https://loveincorporated.blob.core.windows.net/contentimages/gallery/09255f62-f728-4d0f-ac94-b8b9705b93f8-US-Substructures3.jpg',
         preview: false
       },
+      {
+        spotId: 4,
+        url: 'https://loveincorporated.blob.core.windows.net/contentimages/gallery/a1131618-d57c-4d14-8398-48a267672b96-US-Substructures2.jpg',
+        preview: false
+      },
+      {
+        spotId: 4,
+        url: 'https://loveincorporated.blob.core.windows.net/contentimages/gallery/2959aefe-7764-4b47-9e52-77f7746ebf86-floating-seashorse-original-edition-underwater-homes-3.jpg',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://cdn.mos.cms.futurecdn.net/EbCbbH2DSaivokkDuqk6cm.png',
+        preview: true
+      },
+      {
+        spotId: 5,
+        url: 'https://data1.ibtimes.co.in/en/full/522533/moonhouse-you-tube-screen-shot-moonhouse.png?w=617&l=50&t=40',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://www.seti.org/sites/default/files/styles/original/public/2020-10/earth-view-from-moon-perspective-footprints-1400px.jpg?itok=hAH2R4i3',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://economictimes.indiatimes.com/thumb/msid-70212700,width-1200,height-900,resizemode-4,imgsize-245364/view-what-the-moon-mission-told-us-about-earth.jpg',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://i.pinimg.com/736x/5e/33/de/5e33de29a9f2cf6b62971ff145e0f874--one-room-cabins-small-cabins.jpg',
+        preview: false
+      },
     ], {})
   },
 
@@ -97,7 +147,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3, 4] }
+      spotId: { [Op.in]: [1, 2, 3, 4, 5] }
     }, {});
   }
 };

@@ -27,7 +27,7 @@ const SpotForm = ({ spot, formType }) => {
 
         setHasSubmitted(true)
         // console.log("Errors", errors)
-        //don't submit if validation errors
+        // don't submit if validation errors
         if (Object.values(errors).length > 0) return;
 
         let images = [];
@@ -52,20 +52,20 @@ const SpotForm = ({ spot, formType }) => {
 
         if (formType === 'Edit') {
             newSpot.id = spot.id
-            const editedSpotId = await dispatch(updateSpotThunk(newSpot))
-            if (typeof editedSpotId === 'object') {
-                setErrors(editedSpotId)
+            const idOrErrors = await dispatch(updateSpotThunk(newSpot))
+            if (typeof idOrErrors === 'object') {
+                setErrors(idOrErrors)
             } else {
-                history.push(`/spots/${editedSpotId}`)
+                history.push(`/spots/${idOrErrors}`)
             }
         } else {
             //this could be a new spot id OR it could be errors from the front/backend due to my thunk setup
-            const newSpotId = await dispatch(createSpotThunk(newSpot, images))
+            const idOrErrors = await dispatch(createSpotThunk(newSpot, images))
             // console.log("New spot ID", newSpotId)
-            if (typeof newSpotId === 'object') {
-                setErrors(newSpotId)
+            if (typeof idOrErrors === 'object') {
+                setErrors(idOrErrors)
             } else {
-                history.push(`/spots/${newSpotId}`)
+                history.push(`/spots/${idOrErrors}`)
             }
         }
     }

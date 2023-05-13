@@ -5,8 +5,6 @@ import { createReviewThunk, fetchReviewsofSpotThunk } from '../../store/spots';
 import Stars from './Stars';
 import './CreateReviewModal.css'
 
-//todo:
-//look in backend maybe to put reviews in order? want the newly posted review to go to the top not the bottom
 const CreateReviewModal = ({ spotId }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -14,7 +12,7 @@ const CreateReviewModal = ({ spotId }) => {
     const [stars, setStars] = useState(0);
     const [errors, setErrors] = useState({});
     const [isDisabled, setIsDisabled] = useState(true);
-    const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 
     useEffect(() => {
         let errorObj = {};
@@ -46,6 +44,7 @@ const CreateReviewModal = ({ spotId }) => {
 
         const errorsFromServer = await dispatch(createReviewThunk(reviewObj, spotId))
         //create review thunk will only have a return value if there are errors from the backend
+        debugger
         if (errorsFromServer) {
             setErrors(errorsFromServer)
         } else {

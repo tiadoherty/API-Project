@@ -57,6 +57,18 @@ module.exports = {
         name: 'H2Ome',
         description: 'Beach fun for the whole family. NOTE: this property is underwater.',
         price: 650
+      },
+      {
+        ownerId: 4,
+        address: '1 Lunar Way',
+        city: 'Moonville',
+        state: 'MN',
+        country: 'The Universe',
+        lat: -10,
+        lng: 20,
+        name: 'Tiny Home on the Moon',
+        description: 'This tiny cabin on the moon is the ultimate escape from Earth. With just enough space for a cozy living area, a comfortable bed, and a small kitchenette, it\'s the perfect retreat for space adventurers. Despite its small size, the cabin has all the modern amenities you need for a comfortable stay, including air conditioning, heating, and a state-of-the-art filtration system to keep you safe and comfortable in the harsh lunar environment.',
+        price: 85
       }
     ], {})
 

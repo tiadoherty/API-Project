@@ -173,7 +173,7 @@ export const createReviewThunk = (review, spotId) => async dispatch => {
         }
     } catch (backendvalidatorerrors) {
         const errorResponse = await backendvalidatorerrors.json()
-        return (errorResponse.errors)
+        return errorResponse
     }
 }
 
