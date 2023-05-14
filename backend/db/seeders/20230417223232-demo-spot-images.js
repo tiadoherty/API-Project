@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         spotId: 1,
-        url: 'http://www.templeofatlantis.com/resources/298726939_3258163891131536_1381351826422913444_n.jpg',
+        url: 'https://www.wallpaperup.com/uploads/wallpapers/2016/12/09/1063747/7ed69a8a5ee46edf44c2d7800989a753-700.jpg',
         preview: false
       },
       {
@@ -127,7 +127,7 @@ module.exports = {
       },
       {
         spotId: 5,
-        url: 'https://www.seti.org/sites/default/files/styles/original/public/2020-10/earth-view-from-moon-perspective-footprints-1400px.jpg?itok=hAH2R4i3',
+        url: 'https://images.squarespace-cdn.com/content/v1/5d41f82684370e0001f5df35/1593459793183-QZDIHURR455DMAHFXUWJ/Screen+Shot+2020-06-29+at+3.42.30+PM.png',
         preview: false
       },
       {
@@ -138,6 +138,31 @@ module.exports = {
       {
         spotId: 5,
         url: 'https://i.pinimg.com/736x/5e/33/de/5e33de29a9f2cf6b62971ff145e0f874--one-room-cabins-small-cabins.jpg',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://img.huffingtonpost.com/asset/56e2fd9f1e0000b300703d7e.jpeg',
+        preview: true
+      },
+      {
+        spotId: 6,
+        url: 'https://img.huffingtonpost.com/asset/56e2ff171e0000950070fd36.jpeg',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://theluxurytravelexpert.com/wp-content/uploads/2022/06/header.jpg',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://www.travelandleisure.com/thmb/fNXwq7eXxnCE0vfYU6F9ShOcYA4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/atlantis-the-palm-underwater-bathroom-WATERHOTEL0120-a09e43dbc6fd49b2b3f36b116d7fcc64.jpg',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://www.luxxu.net/blog/wp-content/uploads/2020/02/featured-image-5.jpg',
         preview: false
       },
     ], {})

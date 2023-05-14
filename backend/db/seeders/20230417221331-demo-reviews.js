@@ -58,6 +58,30 @@ module.exports = {
         review: 'Hard to get to from the airport',
         stars: 3
       },
+      {
+        spotId: 5,
+        userId: 2,
+        review: 'I had an absolutely incredible stay at the tiny home on the moon! Despite its compact size, this little cabin was well-appointed with all the modern amenities I needed for a comfortable and enjoyable stay. The views of the lunar landscape from the cabins large windows were absolutely breathtaking, and I loved falling asleep each night to the incredible sight of the moonlit landscape outside. ',
+        stars: 5
+      },
+      {
+        spotId: 6,
+        userId: 6,
+        review: 'I recently had the pleasure of staying at the underwater hotel and it was an incredible experience from start to finish! The hotels stunning location beneath the oceans surface offered a one-of-a-kind view of the marine life that surrounded us, and the accommodations were luxurious and comfortable. The staff was incredibly friendly and accommodating, and the attention to detail throughout the hotel was impressive',
+        stars: 5
+      },
+      {
+        spotId: 6,
+        userId: 7,
+        review: 'My children were not able to participate in any of the activities or amenities, and we were not made aware of this before booking. The atmosphere was geared towards adult-only guests, which made it difficult to relax and enjoy our stay as a family. While the hotels location and design were impressive, the lack of family-friendly options left us feeling dissatisfied with our overall experience.',
+        stars: 3
+      },
+      {
+        spotId: 6,
+        userId: 8,
+        review: 'Really unique and interesting stay, would definitely come back!',
+        stars: 5
+      },
     ], {})
   },
 
