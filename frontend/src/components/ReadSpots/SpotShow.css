@@ -18,7 +18,7 @@
 }
 
 .large-img {
-    height: auto;
+    height: 100%;
     width: calc(100% - 10px);
     margin: 5px;
 }
@@ -36,6 +36,7 @@
 
 .small-img {
     width: 100%;
+    height: 100%;
 }
 
 .spot-details-container {
