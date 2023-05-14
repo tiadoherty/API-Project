@@ -7,6 +7,8 @@ import './SpotIndexItem.css'
 
 const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
     const avgRating = spot.avgRating || spot.avgStarRating
+    console.log("Avg rating", avgRating)
+    const displayRating = avgRating ? avgRating?.toFixed(2) : 'New'
     const history = useHistory()
 
     const handleUpdate = () => {
@@ -20,7 +22,7 @@ const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
                     <img src={spot.previewImage} className='spot-preview' />
                     <div className='spot-details'>
                         <span className='spot-details-location'>{spot.city}, {spot.state}</span>
-                        <span><i className="fa-solid fa-star"></i>{avgRating?.toFixed(2)}</span>
+                        <span><i className="fa-solid fa-star"></i>{displayRating}</span>
                     </div>
                     <div className='price-container'>
                         <span className='price'>${spot.price} </span>
