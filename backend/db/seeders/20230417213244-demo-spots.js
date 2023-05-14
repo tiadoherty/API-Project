@@ -78,7 +78,7 @@ module.exports = {
         country: 'Pacific Ocean',
         lat: -10,
         lng: 20,
-        name: 'The Pacfic Hotel',
+        name: 'The Pacific Hotel',
         description: 'The Pacific Underwater Hotel is an extraordinary destination for an unforgettable adventure. Located in the crystal-clear waters of the Pacific Ocean, this luxurious hotel offers a mesmerizing view of the vibrant marine life. With its avant-garde design, the hotel rooms and suites feature floor-to-ceiling windows, allowing you to enjoy the underwater world from the comfort of your own space.',
         price: 329
       }

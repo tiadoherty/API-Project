@@ -18,7 +18,11 @@
     display: flex;
     justify-content: space-between;
     margin-top: 6px;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.spot-details-location {
+    width: 70%;
 }
 
 .price-container {
