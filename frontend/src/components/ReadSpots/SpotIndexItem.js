@@ -19,7 +19,7 @@ const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
                 <li className='spot-index-item' title={spot.name}>
                     <img src={spot.previewImage} className='spot-preview' />
                     <div className='spot-details'>
-                        <span>{spot.city}, {spot.state}</span>
+                        <span className='spot-details-location'>{spot.city}, {spot.state}</span>
                         <span><i className="fa-solid fa-star"></i>{avgRating?.toFixed(2)}</span>
                     </div>
                     <div className='price-container'>
@@ -29,7 +29,7 @@ const SpotIndexItem = ({ spot, canDeleteAndEdit }) => {
                 </li>
             </NavLink>
             {canDeleteAndEdit && (
-                <div className='button-container'>
+                <div className=''>
                     <button onClick={handleUpdate}>Update</button>
                     <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' />
                 </div>
