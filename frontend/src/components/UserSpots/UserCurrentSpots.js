@@ -20,11 +20,16 @@ const CurrentSpots = () => {
         history.push('/spots/new')
     }
 
-    if (!userSpotsArr.length) return <h1>No spots for this user</h1>
+    if (!userSpotsArr.length) return (
+        <>
+            <h1>Manage Spots</h1>
+            <button onClick={handleCreateNewSpotClick}>Create a New Spot</button>
+        </>
+    )
 
     return (
         <>
-            <h1>Manage Your Spots</h1>
+            <h1>Manage Spots</h1>
             <button onClick={handleCreateNewSpotClick}>Create a New Spot</button>
             <section>
                 <ul className='spots-grid'>

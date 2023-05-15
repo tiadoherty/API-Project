@@ -220,7 +220,7 @@ const spotsReducer = (state = {}, action) => {
                 ...state,
                 [action.spotId]: {
                     ...state[action.spotId],
-                    reviews: [...state[action.spotId].reviews, action.review],
+                    reviews: [action.review, ...state[action.spotId].reviews],
                     numReviews: state[action.spotId].reviews.length + 1,
                     avgStarRating: [...state[action.spotId].reviews, action.review].reduce((sum, review) => {
                         sum += review.stars

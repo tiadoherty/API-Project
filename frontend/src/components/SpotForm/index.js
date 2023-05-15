@@ -13,7 +13,7 @@ const SpotForm = ({ spot, formType }) => {
     const [state, setState] = useState(spot?.state || '');
     const [description, setDescription] = useState(spot?.description || '')
     const [name, setName] = useState(spot?.name || '')
-    const [price, setPrice] = useState(spot?.price || 0)
+    const [price, setPrice] = useState(spot?.price || '')
     const [previewImageUrl, setPreviewImageUrl] = useState(spot?.SpotImages?.[0]?.url || '')
     const [imageUrl1, setImageUrl1] = useState(spot?.SpotImages?.[1]?.url || '')
     const [imageUrl2, setImageUrl2] = useState(spot?.SpotImages?.[2]?.url || '')
@@ -84,6 +84,9 @@ const SpotForm = ({ spot, formType }) => {
         if (description.length <= 30) errors.description = 'Description needs a minimum of 30 characters'
         // Name validator
         if (!name.length) errors.name = 'Name is required'
+        // Price validator
+        if (!price) errors.price = 'Price per night is required'
+        if (price && price < 1) errors.price = 'Price must be greater than 0'
         // Preview image validators
         if (!(previewImageUrl.endsWith('.png') || previewImageUrl.endsWith('.jpg') || previewImageUrl.endsWith('.jpeg'))) errors.previewImageUrl = 'Preview image URL must end in .png, .jpg, or .jpeg'
         if (!previewImageUrl.length) errors.previewImageUrl = 'Preview image is required'
@@ -161,7 +164,7 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Set a base price for your spot</h3>
                 <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div className="price">
-                    <span class='dollah-sign'>$</span>
+                    <span className='dollah-sign'>$</span>
                     <input
                         type='number'
                         placeholder='Price per night (USD)'
@@ -211,7 +214,7 @@ const SpotForm = ({ spot, formType }) => {
                 {hasSubmitted && errors.imageUrl4 && <p className='validation-error'>{errors.imageUrl4}</p>}
                 <hr />
                 <div className='submit-button-container'>
-                    <button type='submit' onClick={onSubmit}>{formType === 'Edit' ? 'Update spot' : 'Create a spot'}</button>
+                    <button type='submit' onClick={onSubmit}>{formType === 'Edit' ? 'Update Spot' : 'Create Spot'}</button>
                 </div>
             </form>
         </div>
