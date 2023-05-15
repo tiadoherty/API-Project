@@ -14,7 +14,7 @@ const SpotIndex = () => {
         dispatch(fetchSpotsThunk())
     }, [dispatch])
 
-    if (!spotsArr.length) return <h1>Spots not loaded</h1>;
+    if (!spotsArr.length) return <h1>Spots loading...</h1>;
 
     return (
         <section>

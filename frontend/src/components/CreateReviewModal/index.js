@@ -44,11 +44,11 @@ const CreateReviewModal = ({ spotId }) => {
 
         const errorsFromServer = await dispatch(createReviewThunk(reviewObj, spotId))
         //create review thunk will only have a return value if there are errors from the backend
-        debugger
         if (errorsFromServer) {
             setErrors(errorsFromServer)
         } else {
-            await dispatch(fetchReviewsofSpotThunk(spotId));
+            dispatch(fetchReviewsofSpotThunk(spotId));
+            debugger
             closeModal()
         }
     }
@@ -60,7 +60,7 @@ const CreateReviewModal = ({ spotId }) => {
     return (
         <div className='create-review-modal'>
             <h2>How was your stay?</h2>
-            {hasSubmitted && Object.values(errors).length && <p className='validation-error'>{errors.message}</p>}
+            {hasSubmitted && !!Object.values(errors).length && <p className='validation-error'>{errors.message}</p>}
             <form onSubmit={onSubmit}>
                 <textarea placeholder='Leave your review here...' value={review} onChange={e => { setReview(e.target.value) }} />
                 {hasSubmitted && errors.review && <p className='validation-error'>{errors.review}</p>}
