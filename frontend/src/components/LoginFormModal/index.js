@@ -80,7 +80,7 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit" disabled={buttonIsDisabled}>Log In</button>
-        <a className="demo-user-link" href="#" onClick={handleClickDemoUser}>Demo User</a>
+        <a className="demo-user-link" href="#" onClick={handleClickDemoUser}>Log in as Demo User</a>
       </form>
     </div>
   );
