@@ -2,6 +2,8 @@
 
 # `Airbnb Clone Project`
 
+NoAirBnb is a clone of Airbnb for listing and booking homes that are not dependent on air. Users can easily search and book houses on the moon, Mars, underwater, or any other place where oxygen is not available. The website has some of Airbnb's core features such as individual spot listings, descriptions, and reviews from other users. Hosts can also manage their listings through the user-friendly dashboard. With NoAirBnb, the possibilities for oxygen-free travel are endless!
+
 ## Database Schema Design
 
 <img width="742" alt="airbnb-db-schema" src="https://user-images.githubusercontent.com/122951341/232853081-eb6cca19-448f-4ffe-9ff7-325dda9ab302.png">
