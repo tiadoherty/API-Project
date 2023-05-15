@@ -62,7 +62,7 @@ nav>ul {
 
 .profile-dropdown>li {
     padding: 20px;
-    width: 150px;
+    min-width: 150px;
 }
 
 .profile-dropdown>li:hover {

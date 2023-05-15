@@ -48,7 +48,6 @@ const CreateReviewModal = ({ spotId }) => {
             setErrors(errorsFromServer)
         } else {
             dispatch(fetchReviewsofSpotThunk(spotId));
-            debugger
             closeModal()
         }
     }
