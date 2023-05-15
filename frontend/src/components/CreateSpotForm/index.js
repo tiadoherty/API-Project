@@ -5,7 +5,7 @@ const CreateSpotForm = ({ spot, formType }) => {
     return (
         <>
             <div className='form-title'>
-                <h1>Create a new Spot</h1>
+                <h1>Create a New Spot</h1>
             </div>
             <SpotForm spot={null} formType={'Create'} />
         </>)

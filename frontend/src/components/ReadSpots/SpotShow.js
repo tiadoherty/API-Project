@@ -72,9 +72,9 @@ const SpotShow = () => {
                 {sortedReviews.map(review => (
                     <div className="review-container" key={review.id}>
                         <h4>{review.User?.firstName}</h4>
-                        {sessionUser?.id === review.userId && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
                         <p className='review-date'>{formatDate(review.createdAt)}</p>
                         <p>{review.review}</p>
+                        {sessionUser?.id === review.userId && <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />} buttonText={'Delete'} />}
                     </div>
                 ))}
             </div>
